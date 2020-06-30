@@ -50,7 +50,7 @@ public class ModelStack {
             }
         }
 
-        // Convert arraylist to array for return
+        // Convert arraylist to array for return (toArray creates an arrayList of Double, not double)
         double[] output = new double[outputArrayList.size()];
 
         for (int n = 0; n < output.length; n++)
