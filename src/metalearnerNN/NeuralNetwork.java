@@ -19,7 +19,7 @@ public class NeuralNetwork {
     }
 
     // Sets loss function
-    public  void setLoss(Loss inputLoss) {
+    public void setLoss(Loss inputLoss) {
         loss = inputLoss;
     }
 
@@ -50,8 +50,7 @@ public class NeuralNetwork {
 
         // Converts arraylist back to an array (toArray creates an arrayList of Double, not double)
         double[][] outputLayer = new double[results.size()][results.get(0).length];
-        for (int n = 0; n < outputLayer.length; n++)
-        {
+        for (int n = 0; n < outputLayer.length; n++) {
             outputLayer[n] = results.get(n);
         }
 
@@ -76,7 +75,7 @@ public class NeuralNetwork {
                 displayError += loss.function(expected[input], output);
 
                 // Backprop
-                double error = loss.derivative(expected[input], output);
+                double[] error = loss.derivative(expected[input], output);
                 for (int layer = layers.size() - 1; layer >= 0; layer--) {
 
                     // backProp() adjusts the weights/biases of current layer, returns inputError for backprop of previous layer
@@ -87,13 +86,10 @@ public class NeuralNetwork {
                 displayError /= inputs.length;
                 System.out.println("Epoch " + epoch + " with error " + displayError);
 
-
             }
         }
 
     }
-
-
 
 
 }

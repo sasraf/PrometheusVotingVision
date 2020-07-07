@@ -1,12 +1,10 @@
 package metalearnerNN;
 
-public class Layer {
+public interface Layer {
 
-    //TODO
-    public double[] feedForward(double[] layerInput) { return null ;};
+    public double[] feedForward(double[] layerInput);
 
-    //TODO
-    public double backProp(double outputError, double learningRate) { return 0; };
+    public double[] backProp(double[] outputError, double learningRate);
 
 }
 

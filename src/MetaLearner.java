@@ -24,7 +24,7 @@ public class MetaLearner {
 
     // Feedforwards inputs, returns output of neural network
     public double[] feedForward(double[] inputs) {
-        //TODO
+        //TODO:remember that i need a double array of inputs
         return null;
     }
 }
