@@ -110,6 +110,7 @@ public class Matrix {
 
         // ensures that matrices are multiplicable
         if (matrix1.length != n) {
+            System.out.println("Matrices: " + matrix1.toString() + " and " +matrix2.toString());
             throw new IllegalArgumentException("Matrices Inputted into Matrix.matrixMultiply cannot be multiplied");
         }
 
@@ -119,6 +120,20 @@ public class Matrix {
             for (int j = 0; j < n; j++) {
                 output[i] += matrix2[i][j] * matrix1[j];
             }
+        }
+
+        return output;
+    }
+
+    public static double[] matrixMultiply(double[] matrix1, double[] matrix2) {
+        if (matrix1.length != matrix2.length) {
+            throw new IllegalArgumentException("Matrices Inputted into Matrix.matrixMultiply cannot be multiplied");
+        }
+
+        double[] output = new double[matrix1.length];
+
+        for (int i = 0; i < matrix1.length; i++) {
+            output[i] = matrix1[i] * matrix2[i];
         }
 
         return output;
@@ -192,6 +207,7 @@ public class Matrix {
 
     //TODO: TESTING
     public static void main(String[] args) {
-        double[][] c = new double[][] {{1.0, 2.0}, {3.0, 4.0}};
+//        double[] a = new double[] {}
+        double[][] b = new double[][] {{1.0, 2.0}, {3.0, 4.0}};
     }
 }
