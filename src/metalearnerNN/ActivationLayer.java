@@ -17,6 +17,7 @@ public class ActivationLayer implements Layer {
     }
 
     public double[] backProp(double[] outputError, double learningRate) {
-        return Matrix.matrixMultiply(input, outputError);
+        double[] holder = activationFunction.activationDerivative(input);
+        return Matrix.matrixMultiply(holder, outputError);
     }
 }

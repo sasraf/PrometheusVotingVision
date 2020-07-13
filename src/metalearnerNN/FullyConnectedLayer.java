@@ -19,6 +19,7 @@ public class FullyConnectedLayer implements Layer {
         weights = new double[inputSize][outputSize];
         for (int i = 0; i < inputSize; i++) {
             for (int n = 0; n < outputSize; n++) {
+                //TODO: return to math.random after testing
                 weights[i][n] = Math.random(); //TODO in the tutorial there's a "- .5"... make sure not necessary
             }
         }
@@ -26,7 +27,8 @@ public class FullyConnectedLayer implements Layer {
         // Creates biases as a randomized 1 x outputsize matrix
         biases = new double[outputSize];
         for (int i = 0; i < outputSize; i++) {
-            biases[i] = Math.random(); //TODO in the tutorial there's a "- .5"... make sure not necessary
+            //TODO: return to math.random after testing
+            biases[i] = 1; Math.random(); //TODO in the tutorial there's a "- .5"... make sure not necessary
         }
     }
 

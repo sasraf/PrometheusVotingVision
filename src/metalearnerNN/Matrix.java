@@ -273,16 +273,26 @@ public class Matrix {
     }
 
     public static double[][] transpose(double[] input) {
-        int m = 1;
-        int n = input.length;
 
-        double[][] output = new double[n][m];
+        double[][] output = new double[input.length][1];
 
-        for (int i = 0; i < n; n++) {
-            output[m][i] = input[i];
+        for (int i = 0; i < input.length; i++) {
+            output[i][0] = input[i];
         }
 
         return output;
+
+
+        //        int m = 1;
+//        int n = input.length;
+//
+//        double[][] output = new double[n][m];
+//
+//        for (int i = 0; i < n; i++) {
+//            output[m][i] = input[i];
+//        }
+//
+//        return output;
 
     }
 
