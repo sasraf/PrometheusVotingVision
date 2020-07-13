@@ -1,5 +1,7 @@
 package metalearnerNN;
 
+import java.util.Arrays;
+
 public class XORTest {
     public static void main(String[] args) {
 
@@ -14,14 +16,25 @@ public class XORTest {
         network.addLayer(new FullyConnectedLayer(3, 1));
         network.addLayer(new ActivationLayer(new tanhActivationFunction()));
 
-        // Training
+
         network.setLoss(new MeanSquaredErrorFunction());
-        network.train(inputData, expectedOutput, 1000, .1);
+
+        // Training and keeping track of time it takes to train
+        long startTime = System.nanoTime();
+        network.train(inputData, expectedOutput, 500, .1);
+        long endTime = System.nanoTime();
+
+        long trainingTime = endTime - startTime;
+
+        System.out.println("\n\nTraining time: " + trainingTime + "nanoseconds\n\n");
 
         // Test network
         double[][] output = network.predict(inputData);
+
         for (int i = 0; i < inputData.length; i++) {
-            System.out.println("For set " + inputData[i].toString() + " my prediction is " + output[i].toString() + " while the correct value is " + expectedOutput[i]);
+            System.out.println("For set " + Arrays.toString(inputData[i]) + " my prediction is " + Arrays.toString(output[i]) + " while the correct value is " + Arrays.toString(expectedOutput[i]));
         }
+
+        System.out.println("\n\nTraining time: " + trainingTime + "nanoseconds\n\n");
     }
 }

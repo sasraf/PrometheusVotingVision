@@ -1,5 +1,8 @@
 package metalearnerNN;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class FullyConnectedLayer implements Layer {
 
     // Initializes a fully connected layer with a inputSize x outputSize matrix of weights and a 1 x outputSize matrix
@@ -58,9 +61,13 @@ public class FullyConnectedLayer implements Layer {
         weights = Matrix.matrixSubtract(weights, Matrix.constantMultiply(weightsError, learningRate));
         biases = Matrix.matrixSubtract(biases, Matrix.constantMultiply(outputError, learningRate));
 
+        //TODO: test
+//        System.out.println("Outputerror: " + Arrays.toString(outputError));
+//        System.out.println("Weights: " + Arrays.deepToString(weights));
+//        System.out.println("inputerror = np.dot(outputerror, weights.t = " + Arrays.toString(inputError));
+//        System.out.println();
+
         return inputError;
-
-
     }
 
 }

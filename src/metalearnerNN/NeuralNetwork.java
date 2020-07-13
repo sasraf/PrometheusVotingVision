@@ -64,14 +64,12 @@ public class NeuralNetwork {
             double displayError = 0;
             for (int input = 0; input < inputs.length; input++) {
                 double[] output = inputs[input];
-
                 // Feed through neural network
                 for (Layer layer : layers) {
                     output = layer.feedForward(output);
                 }
 
                 // Calculate loss
-                //TODO: create a loss interface??
                 displayError += loss.function(expected[input], output);
 
                 // Backprop
@@ -81,12 +79,11 @@ public class NeuralNetwork {
                     // backProp() adjusts the weights/biases of current layer, returns inputError for backprop of previous layer
                     error = layers.get(layer).backProp(error, learningRate);
                 }
-
-                // Calculates avg error, displays error/epoch
-                displayError /= inputs.length;
-                System.out.println("Epoch " + epoch + " with error " + displayError);
-
             }
+
+            // Calculates avg error, displays error/epoch
+            displayError /= inputs.length;
+            System.out.println("Epoch " + epoch + " with error " + displayError);
         }
 
     }
