@@ -2,7 +2,9 @@ package metalearnerNN.Activations;
 
 import metalearnerNN.Matrix;
 
-public class softmaxActivationFunction implements ActivationFunction {
+import java.io.Serializable;
+
+public class softmaxActivationFunction implements ActivationFunction, Serializable {
 
     private double esum;
 

@@ -2,7 +2,9 @@ package metalearnerNN.Activations;
 
 import metalearnerNN.Matrix;
 
-public class tanhActivationFunction implements ActivationFunction {
+import java.io.Serializable;
+
+public class tanhActivationFunction implements ActivationFunction, Serializable {
 
     public tanhActivationFunction() {
 

@@ -1,24 +1,21 @@
 package metalearnerNN.TestNetworks;
 
-import metalearnerNN.ActivationLayer;
-import metalearnerNN.Activations.softmaxActivationFunction;
-import metalearnerNN.Activations.tanhActivationFunction;
-import metalearnerNN.FullyConnectedLayer;
-import metalearnerNN.Loss.MeanSquaredErrorFunction;
-import metalearnerNN.NeuralNetwork;
+import metalearnerNN.*;
+import metalearnerNN.Activations.*;
+import metalearnerNN.Loss.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.Arrays;
 
 public class XORTest {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         // Sample training data
         double[][] inputData = new double[][] {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
         double[][] expectedOutput = new double[][] {{0, 1}, {1, 0}, {1, 0}, {0, 1}};
 
-        // Setting up network with 3 layers & tanh activation functions
+        // Setting up network with 3 layers & tanh activation functions with a softmax output layer
         NeuralNetwork network = new NeuralNetwork();
         network.addLayer(new FullyConnectedLayer(2, 3));
         network.addLayer(new ActivationLayer(new tanhActivationFunction()));
@@ -30,12 +27,15 @@ public class XORTest {
 
         // Training and keeping track of time it takes to train
         long startTime = System.nanoTime();
-        network.train(inputData, expectedOutput, 400, .1);
+        network.train(inputData, expectedOutput, 500, .1);
         long endTime = System.nanoTime();
 
         long trainingTime = endTime - startTime;
 
-//        network.save("bob.txt");
+        // Test saving/loading
+        network.save("bob.txt");
+        network = network.load("bob.txt");
+
 
         // Test network
         double[][] output = network.predict(inputData);

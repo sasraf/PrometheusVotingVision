@@ -3,7 +3,9 @@ package metalearnerNN.Loss;
 import metalearnerNN.Loss.Loss;
 import metalearnerNN.Matrix;
 
-public class MeanSquaredErrorFunction implements Loss {
+import java.io.Serializable;
+
+public class MeanSquaredErrorFunction implements Loss, Serializable {
 
     public MeanSquaredErrorFunction () {
     }

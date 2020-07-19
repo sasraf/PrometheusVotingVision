@@ -2,20 +2,16 @@ package metalearnerNN;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class FullyConnectedLayer implements Layer {
+public class FullyConnectedLayer implements Layer, Serializable {
 
     private double[][] weights;
     private double[] biases;
     private double[] input;
     private double[] output;
-
-    // Save weights and biases of layer
-    public void save(FileWriter fileWriter) throws IOException {
-        fileWriter.write("\nWEIGHTS: " + Arrays.deepToString(weights) + "\n" + "BIASES: " + Arrays.toString(biases));
-    }
 
     // Initializes a fully connected layer with a inputSize x outputSize matrix of weights and a 1 x outputSize matrix of biases
     public FullyConnectedLayer (int inputSize, int outputSize) {

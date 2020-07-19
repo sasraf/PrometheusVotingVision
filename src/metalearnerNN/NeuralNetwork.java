@@ -1,14 +1,13 @@
 package metalearnerNN;
 
 import metalearnerNN.Loss.Loss;
+import metalearnerNN.Loss.MeanSquaredErrorFunction;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable {
 
     private ArrayList<Layer> layers;
     private Loss loss;
@@ -18,47 +17,28 @@ public class NeuralNetwork {
         loss = null;
     }
 
-    public void save(String dirPath) throws IOException {
+    // Serialize
+    public void save(String path) throws IOException {
+        FileOutputStream writeFile = new FileOutputStream(path);
+        ObjectOutputStream out = new ObjectOutputStream(writeFile);
 
-        File saveFile = new File(dirPath);
+        out.writeObject(this);
 
-        // If file already exists, ask user if they want to clear it
-        if (saveFile.exists()) {
-            System.out.println("File " + dirPath + " already exits. Would you like to overwrite? (Y/N)");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
-            input = input.toLowerCase();
+        out.close();
+        writeFile.close();
+    }
 
-            if (input.equals("n") || input.equals("no")) {
-                throw new IllegalArgumentException("NN was not saved");
-            }
-            else if (!input.equals("y") || input.equals("yes")) {
-                throw new IllegalArgumentException("User response was not understood. Requested (Y/N) but received: " + input);
-            }
-        }
+    // Deserialize
+    public NeuralNetwork load(String path) throws IOException, ClassNotFoundException {
+        FileInputStream readFile = new FileInputStream(path);
+        ObjectInputStream in = new ObjectInputStream(readFile);
 
-        // Append = false: overwrites
-        FileWriter fileWriter = new FileWriter(saveFile,false);
+        NeuralNetwork nn = (NeuralNetwork)in.readObject();
 
-        //First write to file the specifications of the NN
-        //Write NN as header then state the number of layers
-        fileWriter.write("NN\nLAYERS:" + layers.size() + "\n");
+        in.close();
+        readFile.close();
 
-        // State what type of layer each layer is
-        for (int i = 0; i < layers.size(); i++) {
-            fileWriter.write(layers.get(i).getClass().getSimpleName() + ",");
-        }
-
-
-        // Now save weights/biases of each layer
-        for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).save(fileWriter);
-        }
-
-        // Now save loss function
-        fileWriter.write("\nLOSS: " + loss.getClass().getSimpleName());
-
-        fileWriter.close();
+        return nn;
     }
 
     // Adds layer

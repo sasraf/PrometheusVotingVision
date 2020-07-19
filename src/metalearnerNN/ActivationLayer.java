@@ -4,16 +4,13 @@ import metalearnerNN.Activations.ActivationFunction;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class ActivationLayer implements Layer {
+public class ActivationLayer implements Layer, Serializable {
 
     private ActivationFunction activationFunction;
     private double[] input;
     private double[] output;
-
-    public void save(FileWriter fileWriter) throws IOException {
-        fileWriter.write("\nACTIVATION: " + activationFunction.getClass().getSimpleName());
-    }
 
     // Stores activaiton function for use on initialization
     public ActivationLayer(ActivationFunction passedActivationFunction) {
