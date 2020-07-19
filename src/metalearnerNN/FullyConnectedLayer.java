@@ -1,39 +1,41 @@
 package metalearnerNN;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class FullyConnectedLayer implements Layer {
-
-    // Initializes a fully connected layer with a inputSize x outputSize matrix of weights and a 1 x outputSize matrix
-    // of biases
 
     private double[][] weights;
     private double[] biases;
     private double[] input;
     private double[] output;
 
+    // Save weights and biases of layer
+    public void save(FileWriter fileWriter) throws IOException {
+        fileWriter.write("\nWEIGHTS: " + Arrays.deepToString(weights) + "\n" + "BIASES: " + Arrays.toString(biases));
+    }
+
+    // Initializes a fully connected layer with a inputSize x outputSize matrix of weights and a 1 x outputSize matrix of biases
     public FullyConnectedLayer (int inputSize, int outputSize) {
 
         // Creates weights as a randomized matrix of inpusize x outputsize
         weights = new double[inputSize][outputSize];
         for (int i = 0; i < inputSize; i++) {
             for (int n = 0; n < outputSize; n++) {
-                //TODO: return to math.random after testing
-                weights[i][n] = Math.random(); //TODO in the tutorial there's a "- .5"... make sure not necessary
+                weights[i][n] = Math.random();
             }
         }
 
         // Creates biases as a randomized 1 x outputsize matrix
         biases = new double[outputSize];
         for (int i = 0; i < outputSize; i++) {
-            //TODO: return to math.random after testing
-            biases[i] = 1; Math.random(); //TODO in the tutorial there's a "- .5"... make sure not necessary
+            biases[i] = Math.random();
         }
     }
 
-    // Feeds an array of inputs from a layer through this layer and returns the output
-    // of this layer
+    // Feeds an array of inputs from a layer through this layer and returns the output of this layer
     public double[] feedForward(double[] passedInput) {
         input = passedInput;
 
@@ -43,9 +45,6 @@ public class FullyConnectedLayer implements Layer {
 
         return output;
     }
-
-    //TODO: make everything double[][] instead of double[] ??????
-    //TODO that's how numpy operates and might make things a lot easier
 
     // Adjusts weights/biases, returns derivative of error with respect to input
     public double[] backProp(double[] outputError, double learningRate) {
@@ -62,12 +61,6 @@ public class FullyConnectedLayer implements Layer {
 
         weights = Matrix.matrixSubtract(weights, Matrix.constantMultiply(weightsError, learningRate));
         biases = Matrix.matrixSubtract(biases, Matrix.constantMultiply(outputError, learningRate));
-
-        //TODO: test
-//        System.out.println("Outputerror: " + Arrays.toString(outputError));
-//        System.out.println("Weights: " + Arrays.deepToString(weights));
-//        System.out.println("inputerror = np.dot(outputerror, weights.t = " + Arrays.toString(inputError));
-//        System.out.println();
 
         return inputError;
     }

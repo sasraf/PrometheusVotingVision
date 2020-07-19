@@ -8,8 +8,7 @@ public class Matrix {
     // Returns mean of
     public static double mean(double[] input) {
         double sum = 0;
-        for (int i = 0; i < input.length; i++)
-        {
+        for (int i = 0; i < input.length; i++) {
             sum += input[i];
         }
 
@@ -39,11 +38,11 @@ public class Matrix {
             c[i] = minuend[i] - subtrahend[i];
         }
 
-        return  c;
+        return c;
     }
 
     // Matrix subtraction for 2d matrices
-    public static  double[][] matrixSubtract(double[][] minuend, double[][] subtrahend) {
+    public static double[][] matrixSubtract(double[][] minuend, double[][] subtrahend) {
         if (minuend.length != subtrahend.length || minuend[0].length != subtrahend[0].length) {
             throw new IllegalArgumentException("matrixSubtract failed due to the matrices being different sizes");
         }
@@ -59,11 +58,9 @@ public class Matrix {
         return output;
     }
 
-
     public static double[] matrixAdd(double[] a, double[] b) {
 
-        if (a.length != b.length)
-        {
+        if (a.length != b.length) {
             throw new IllegalArgumentException("matrixAdd failed due to the matrices being different sizes");
         }
 
@@ -76,7 +73,7 @@ public class Matrix {
     }
 
     // Multiplies two matrices
-    // Code from https://introcs.cs.princeton.edu/java/22library/Matrix.java.html
+    // Adapted code from https://introcs.cs.princeton.edu/java/22library/Matrix.java.html
     public static double[][] matrixMultiply(double[][] matrix1, double[][] matrix2) {
         // Stores lengths in appropriately labeled variables for ease of writing/reading
         int m1 = matrix1.length;
@@ -87,7 +84,7 @@ public class Matrix {
         double[][] output;
         // Scalar multiplication
         if (m1 == 1 && n1 == 1) {
-            output= new double[m2][n2];
+            output = new double[m2][n2];
 
             for (int m = 0; m < m2; m++) {
                 for (int n = 0; n < n2; n++) {
@@ -103,8 +100,7 @@ public class Matrix {
                     output[i][j] = matrix2[i][0] * matrix1[0][j];
                 }
             }
-        }
-        else {
+        } else {
             // ensures that matrices are multiplicable
             if (n1 != m2) {
                 throw new IllegalArgumentException("Matrices Inputted into Matrix.matrixMultiply cannot be multiplied");
@@ -120,25 +116,10 @@ public class Matrix {
                 }
             }
         }
-
         return output;
     }
 
     // Matrix.dot operates the same way as numpy.dot() from numpy: https://www.javatpoint.com/numpy-dot#:~:text=%E2%86%92%20%E2%86%90%20prev-,numpy.,vectors%20(without%20complex%20conjugation).
-    //TODO: fix naming conventions
-
-    // For multiplying a 2d matrix with a 1d matrix
-    // Code from https://introcs.cs.princeton.edu/java/22library/Matrix.java.html
-//    public static double[] matrixMultiply(double[] x, double[][] a) {
-//        int m = a.length;
-//        int n = a[0].length;
-//        if (x.length != n) throw new RuntimeException("Illegal matrix dimensions.");
-//        double[] y = new double[m];
-//        for (int i = 0; i < m; i++)
-//            for (int j = 0; j < n; j++)
-//                y[i] += a[i][j] * x[j];
-//        return y;
-//    }
 
     public static double[] matrixMultiply(double[] a, double[][] b) {
         // Deals with if b is an n x m matrix
@@ -155,11 +136,10 @@ public class Matrix {
                 c[i] = sum;
             }
         }
-        // deals with multiplying b by a scalar
+        // deals with multiplying b by a scalar stored in a 1d array
         else if (a.length == 1) {
-            if (b.length != 1)
-            {
-                throw new IllegalArgumentException("Array shapes 1x" + a.length + " and " + b.length + "x" + b[0].length + " are not multiplicable" );
+            if (b.length != 1) {
+                throw new IllegalArgumentException("Array shapes 1x" + a.length + " and " + b.length + "x" + b[0].length + " are not multiplicable");
             }
             c = new double[b[0].length];
             for (int i = 0; i < b[0].length; i++) {
@@ -170,12 +150,10 @@ public class Matrix {
         // Deals with if b happens to be a 2d array of size n x 1
         else {
             if (a.length != b[0].length) {
-                printArray(a);
-                printArray(b);
                 throw new IllegalArgumentException("Inputted Matrices are not multiplicable");
             }
 
-            c = new double[] {0};
+            c = new double[]{0};
             for (int i = 0; i < a.length; i++) {
                 c[0] += a[i] * b[0][i];
             }
@@ -183,29 +161,8 @@ public class Matrix {
         }
         return c;
     }
-//    public static double[] matrixMultiply(double[] matrix1, double[][] matrix2)
-//    {
-//        int m = matrix2.length;
-//
-//        int n = matrix2[0].length;
-//
-//        // ensures that matrices are multiplicable
-//        if (matrix1.length != m) {
-//            System.out.println("Matrices: " + matrix1.toString() + " and " +matrix2.toString());
-//            throw new IllegalArgumentException("Matrices Inputted into Matrix.matrixMultiply cannot be multiplied");
-//        }
-//
-//        double[] output = new double[m];
-//
-//        for (int i = 0; i < m; i++) {
-//            for (int j = 0; j < n; j++) {
-//                output[i] += matrix2[i][j] * matrix1[j];
-//            }
-//        }
-//
-//        return output;
-//    }
 
+    // Multiplies two 1d matrices
     public static double[] matrixMultiply(double[] matrix1, double[] matrix2) {
         if (matrix1.length != matrix2.length) {
             throw new IllegalArgumentException("Matrices Inputted into Matrix.matrixMultiply cannot be multiplied");
@@ -237,8 +194,7 @@ public class Matrix {
         double[][] c = new double[matrix.length][matrix[0].length];
 
         for (int i = 0; i < matrix.length; i++) {
-            for (int n = 0; n < matrix[0].length; n++)
-            {
+            for (int n = 0; n < matrix[0].length; n++) {
                 c[i][n] = matrix[i][n] * multiplier;
             }
         }
@@ -281,45 +237,8 @@ public class Matrix {
         }
 
         return output;
-
-
-        //        int m = 1;
-//        int n = input.length;
-//
-//        double[][] output = new double[n][m];
-//
-//        for (int i = 0; i < n; i++) {
-//            output[m][i] = input[i];
-//        }
-//
-//        return output;
-
     }
 
-    // For testing purposes
-    private static void printArray(double[] a) {
-
-        System.out.println("[ ");
-        for (int i = 0; i < a.length; i++)
-        {
-            System.out.print(a[i] + " ");
-        }
-        System.out.print(" ]");
-    }
-    private static void printArray(double[][] a) {
-
-        System.out.println("[ ");
-        for (int i = 0; i < a.length; i++)
-        {
-//            System.out.print(", " + a[i]);
-            System.out.print("[ ");
-            for (int n = 0; n < a[0].length; n++) {
-                System.out.print(a[i][n] + " ");
-            }
-            System.out.print("]");
-        }
-        System.out.print(" ]");
-    }
 
     //TODO: TESTING
     public static void main(String[] args) {
@@ -329,8 +248,8 @@ public class Matrix {
 //        double[]a = new double[] {-.5742435, .98794503, -.99557553};
 //        double[][] b = new double[][] {{2.17395526, .98836921, -1.65973694}};
 
-        double[][] a = new double[][] {{ 0.000000235161797, -0.00310982273, -0.0000271501153}};
-        double[][] b = new double[][] {{1}, {1}};
+        double[][] a = new double[][]{{0.000000235161797, -0.00310982273, -0.0000271501153}};
+        double[][] b = new double[][]{{1}, {1}};
 
         if (a.length == 1 && b[0].length == 1) {
 

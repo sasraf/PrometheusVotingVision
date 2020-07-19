@@ -1,4 +1,7 @@
-package metalearnerNN;
+package metalearnerNN.Loss;
+
+import metalearnerNN.Loss.Loss;
+import metalearnerNN.Matrix;
 
 public class MeanSquaredErrorFunction implements Loss {
 

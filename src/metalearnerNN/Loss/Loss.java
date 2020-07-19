@@ -1,4 +1,4 @@
-package metalearnerNN;
+package metalearnerNN.Loss;
 
 public interface Loss {
 

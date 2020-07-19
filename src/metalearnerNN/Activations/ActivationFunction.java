@@ -1,4 +1,4 @@
-package metalearnerNN;
+package metalearnerNN.Activations;
 
 public interface ActivationFunction {
 
