@@ -1,5 +1,7 @@
 package metalearnerNN.Activations;
 
+import metalearnerNN.Matrix;
+
 public class tanhActivationFunction implements ActivationFunction {
 
     public tanhActivationFunction() {
@@ -22,6 +24,10 @@ public class tanhActivationFunction implements ActivationFunction {
         }
 
         return x;
+    }
+
+    public double[] dEdX(double[] input, double[] outputError) {
+        return Matrix.matrixMultiply(activationDerivative(input), outputError);
     }
 
 }

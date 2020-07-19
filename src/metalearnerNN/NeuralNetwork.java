@@ -116,7 +116,7 @@ public class NeuralNetwork {
                 for (int layer = layers.size() - 1; layer >= 0; layer--) {
 
                     // backProp() adjusts the weights/biases of current layer, returns inputError for backprop of previous layer
-                    error = layers.get(layer).backProp(error, learningRate);
+                    error = layers.get(layer).backProp(error, learningRate, expected[input]);
                 }
             }
 

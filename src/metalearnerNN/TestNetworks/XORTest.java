@@ -23,7 +23,7 @@ public class XORTest {
         network.addLayer(new FullyConnectedLayer(2, 3));
         network.addLayer(new ActivationLayer(new tanhActivationFunction()));
         network.addLayer(new FullyConnectedLayer(3, 2));
-        network.addLayer(new ActivationLayer(new tanhActivationFunction()));
+        network.addLayer(new ActivationLayer(new softmaxActivationFunction()));
 
 
         network.setLoss(new MeanSquaredErrorFunction());
@@ -35,8 +35,7 @@ public class XORTest {
 
         long trainingTime = endTime - startTime;
 
-        network.save("bob.txt");
-//    y
+//        network.save("bob.txt");
 
         // Test network
         double[][] output = network.predict(inputData);

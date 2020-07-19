@@ -47,7 +47,7 @@ public class FullyConnectedLayer implements Layer {
     }
 
     // Adjusts weights/biases, returns derivative of error with respect to input
-    public double[] backProp(double[] outputError, double learningRate) {
+    public double[] backProp(double[] outputError, double learningRate, double[] expected) {
 
         double[] inputError = Matrix.matrixMultiply(outputError, Matrix.transpose(weights));
 

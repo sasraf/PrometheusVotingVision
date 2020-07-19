@@ -1,11 +1,15 @@
 package metalearnerNN.Activations;
 
+import metalearnerNN.Matrix;
+
 public class softmaxActivationFunction implements ActivationFunction {
 
     private double esum;
 
     public double[] activation(double[] x) {
         //Get sum of each number taken to the power of e
+
+        esum = 0;
         for (int i = 0; i < x.length; i++) {
             esum += Math.exp(x[i]);
         }
@@ -18,25 +22,22 @@ public class softmaxActivationFunction implements ActivationFunction {
         return x;
     }
 
-    public double[] activationDerivative(double[] x) {
-
-        double[] softmax = activation(x);
-
-        double[] output = new double[x.length];
-        for(int neuron = 0; neuron < output.length; neuron++) {
-            output[neuron] = softmax[neuron] * (1d - softmax[neuron]);
+    public double[] dEdX(double[] input, double[] output) {
+        double tSum = 0;
+        for (int i = 0; i < output.length; i++) {
+            tSum += output[i];
         }
 
-        return output;
-        
-    }
+        double[] o = activation(input);
 
-    private double kroneckerDelta(double i, double j) {
-        if (i != j) {
-            return 0;
+        double[] c = new double[input.length];
+
+        for (int i = 0; i < o.length; i++) {
+            c[i] = o[i] * tSum - output[i];
         }
-        else {
-            return 1;
-        }
+        return c;
     }
 }
+//
+//    public double[] activationDerivativeWRTOutput
+//}

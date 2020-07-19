@@ -28,7 +28,13 @@ public class ActivationLayer implements Layer {
     }
 
     // Runs backprop on activationlayer
-    public double[] backProp(double[] outputError, double learningRate) {
-        return Matrix.matrixMultiply(activationFunction.activationDerivative(input), outputError);
+    public double[] backProp(double[] outputError, double learningRate, double[] expected) {
+
+        // Deals with softmax
+        if (activationFunction.getClass().getSimpleName().equals("softmaxActivationFunction")) {
+            return activationFunction.dEdX(input, expected);
+        }
+
+        return activationFunction.dEdX(input, outputError);
     }
 }
