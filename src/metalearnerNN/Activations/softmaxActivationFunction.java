@@ -22,6 +22,7 @@ public class softmaxActivationFunction implements ActivationFunction {
         return x;
     }
 
+    // Formula from https://stats.stackexchange.com/questions/235528/backpropagation-with-softmax-cross-entropy
     public double[] dEdX(double[] input, double[] output) {
         double tSum = 0;
         for (int i = 0; i < output.length; i++) {
@@ -38,6 +39,3 @@ public class softmaxActivationFunction implements ActivationFunction {
         return c;
     }
 }
-//
-//    public double[] activationDerivativeWRTOutput
-//}

@@ -40,7 +40,7 @@ public class FullyConnectedLayer implements Layer {
         input = passedInput;
 
         //Returns a 1 x outputsize matrix of output values corresponding to each neuron in the next layer
-        output = Matrix.matrixMultiply(input, weights);
+        output = Matrix.dot(input, weights);
         output = Matrix.matrixAdd(output, biases);
 
         return output;
@@ -49,7 +49,7 @@ public class FullyConnectedLayer implements Layer {
     // Adjusts weights/biases, returns derivative of error with respect to input
     public double[] backProp(double[] outputError, double learningRate, double[] expected) {
 
-        double[] inputError = Matrix.matrixMultiply(outputError, Matrix.transpose(weights));
+        double[] inputError = Matrix.dot(outputError, Matrix.transpose(weights));
 
         //TODO: quickfix: turn outputerror into a 2d array for matrix multiplication; find a more elegant solution
         double[][] twoDOutputError = new double[1][outputError.length];
@@ -57,7 +57,7 @@ public class FullyConnectedLayer implements Layer {
             twoDOutputError[0][i] = outputError[i];
         }
 
-        double[][] weightsError = Matrix.matrixMultiply(twoDOutputError, Matrix.transpose(input));
+        double[][] weightsError = Matrix.dot(twoDOutputError, Matrix.transpose(input));
 
         weights = Matrix.matrixSubtract(weights, Matrix.constantMultiply(weightsError, learningRate));
         biases = Matrix.matrixSubtract(biases, Matrix.constantMultiply(outputError, learningRate));

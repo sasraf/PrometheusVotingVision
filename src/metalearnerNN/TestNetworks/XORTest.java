@@ -30,7 +30,7 @@ public class XORTest {
 
         // Training and keeping track of time it takes to train
         long startTime = System.nanoTime();
-        network.train(inputData, expectedOutput, 500, .1);
+        network.train(inputData, expectedOutput, 400, .1);
         long endTime = System.nanoTime();
 
         long trainingTime = endTime - startTime;

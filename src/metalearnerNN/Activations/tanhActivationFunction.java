@@ -26,8 +26,10 @@ public class tanhActivationFunction implements ActivationFunction {
         return x;
     }
 
+    // dE/dX = f'(x) * dE/dY
     public double[] dEdX(double[] input, double[] outputError) {
         return Matrix.matrixMultiply(activationDerivative(input), outputError);
     }
 
 }
+
