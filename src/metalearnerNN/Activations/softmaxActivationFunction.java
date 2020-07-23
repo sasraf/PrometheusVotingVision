@@ -1,8 +1,7 @@
 package metalearnerNN.Activations;
 
-import metalearnerNN.Matrix;
-
 import java.io.Serializable;
+
 
 public class softmaxActivationFunction implements ActivationFunction, Serializable {
 
@@ -10,18 +9,26 @@ public class softmaxActivationFunction implements ActivationFunction, Serializab
 
     public double[] activation(double[] x) {
         //Get sum of each number taken to the power of e
-
         esum = 0;
         for (int i = 0; i < x.length; i++) {
-            esum += Math.exp(x[i]);
+
+            double exp = Math.exp(x[i]);
+
+            // Deals with if Math.exp(x[i]) is infinity
+            exp = Math.min(exp, Double.MAX_VALUE);
+            esum += exp;
         }
 
         // Run softmax function on each input in x
+        double[] c = new double[x.length];
         for (int i = 0; i < x.length; i++) {
-            x[i] = Math.exp(x[i]) / esum;
-        }
+            double exp = Math.exp(x[i]);
 
-        return x;
+            // Deals with if Math.exp(x[i]) is infinity
+            exp = Math.min(exp, Double.MAX_VALUE);
+            c[i] = exp / esum;
+        }
+        return c;
     }
 
     // Formula from https://stats.stackexchange.com/questions/235528/backpropagation-with-softmax-cross-entropy
@@ -38,6 +45,7 @@ public class softmaxActivationFunction implements ActivationFunction, Serializab
         for (int i = 0; i < o.length; i++) {
             c[i] = o[i] * tSum - output[i];
         }
+
         return c;
     }
 }

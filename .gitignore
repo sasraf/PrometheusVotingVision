@@ -1,0 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+!/src/testImages/mnist_test
+!/src/testImages/mnist_train
+!/src/testImages/mnist_test.csv
+!/src/testImages/mnist_train.csv

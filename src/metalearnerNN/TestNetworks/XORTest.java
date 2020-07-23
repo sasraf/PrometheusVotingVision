@@ -20,6 +20,7 @@ public class XORTest {
         network.addLayer(new FullyConnectedLayer(2, 3));
         network.addLayer(new ActivationLayer(new tanhActivationFunction()));
         network.addLayer(new FullyConnectedLayer(3, 2));
+//        network.addLayer(new ActivationLayer(new tanhActivationFunction()));
         network.addLayer(new ActivationLayer(new softmaxActivationFunction()));
 
 

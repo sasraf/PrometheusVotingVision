@@ -1,30 +1,58 @@
 import metalearnerNN.*;
+import metalearnerNN.Activations.softmaxActivationFunction;
+import metalearnerNN.Activations.tanhActivationFunction;
+import metalearnerNN.Loss.MeanSquaredErrorFunction;
+
+import java.io.IOException;
 
 public class MetaLearner {
 
-    private NeuralNetwork neuralNetwork;
+    private NeuralNetwork network;
+
+    // Default seetings:
+    private final int inputs = 16;
+    private final int outputs = 4;
+    private double learningRate = .1;
 
     public MetaLearner() {
-        //TODO
+        network = new NeuralNetwork();
+        network.setLoss(new MeanSquaredErrorFunction());
+        network.addLayer(new FullyConnectedLayer(inputs, 12));
+        network.addLayer(new ActivationLayer(new tanhActivationFunction()));
+        network.addLayer(new FullyConnectedLayer(12, outputs));
+        network.addLayer(new ActivationLayer(new softmaxActivationFunction()));
+
     }
 
-    public MetaLearner (String weightFilePath) {
-        //TODO: enable metalearner to load with weights
+    // Allows easy initialization of MetaLearner with different settings
+    public MetaLearner(int passedInputs, int passedOutputs, double passedLearningRate) {
+        network = new NeuralNetwork();
+        network.setLoss(new MeanSquaredErrorFunction());
+        network.addLayer(new FullyConnectedLayer(passedInputs, 12));
+        network.addLayer(new ActivationLayer(new tanhActivationFunction()));
+        network.addLayer(new FullyConnectedLayer(12, passedOutputs));
+        network.addLayer(new ActivationLayer(new softmaxActivationFunction()));
+
+        learningRate = passedLearningRate;
+
     }
 
     // Saves weights and biases to a file
-    public void save() {
-        //TODO
+    public void save(String path) throws IOException {
+        network.save(path);
+    }
+
+    public void load(String path) throws IOException, ClassNotFoundException {
+        network = network.load(path);
     }
 
     //Runs backprop algorithm
-    public void backProp() {
-        //TODO
+    public void backProp(double[][] inputs, double[][] expected, int epochs) {
+        network.train(inputs, expected, epochs, learningRate);
     }
 
     // Feedforwards inputs, returns output of neural network
-    public double[] feedForward(double[] inputs) {
-        //TODO:remember that i need a double array of inputs
-        return null;
+    public double[][] feedForward(double[][] inputs) {
+        return network.predict(inputs);
     }
 }

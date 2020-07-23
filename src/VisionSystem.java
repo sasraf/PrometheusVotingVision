@@ -34,12 +34,20 @@ public class VisionSystem {
                 // Creates an arraylist of the paths of each image in the given directory
                 ArrayList<String> imagePaths = listImagesInDir(dirPath);
 
-                // For each image, outputs of all algorithms into processedImage, pass processedImage through to the metalearner
-                for (int i = 0; i < imagePaths.size(); i++) {
-                    double[] processedImage = modelStack.processImage(imagePaths.get(i));
-                    double[] metaOutput = metaLearner.feedForward(processedImage);
-                    System.out.println(metaOutput.toString());
+                // For each image, outputs of all algorithms into processedImage, collect those inputs into a metaLearnerInput double array to be passed to the metaLearner
+                double[] processedImage = modelStack.processImage(imagePaths.get(0));
+                double[][] metaLearnerInputs = new double[imagePaths.size()][processedImage.length];
+                metaLearnerInputs[0] = processedImage;
+                for (int i = 1; i < imagePaths.size(); i++) {
+                    processedImage = modelStack.processImage(imagePaths.get(i));
+                    metaLearnerInputs[i] = processedImage;
                 }
+
+                // Pass inputs to metaLearner
+                double[][] metaOutputs = metaLearner.feedForward(metaLearnerInputs);
+
+                //TODO: print out outputs
+
 
             }
             else if (input.equals("b") || input.equals("B")) {

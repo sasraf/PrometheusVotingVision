@@ -5,6 +5,7 @@ import metalearnerNN.Loss.MeanSquaredErrorFunction;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class NeuralNetwork implements Serializable {
@@ -93,11 +94,13 @@ public class NeuralNetwork implements Serializable {
 
                 // Backprop
                 double[] error = loss.derivative(expected[input], output);
+
                 for (int layer = layers.size() - 1; layer >= 0; layer--) {
 
                     // backProp() adjusts the weights/biases of current layer, returns inputError for backprop of previous layer
                     error = layers.get(layer).backProp(error, learningRate, expected[input]);
                 }
+
             }
 
             // Calculates avg error, displays error/epoch
