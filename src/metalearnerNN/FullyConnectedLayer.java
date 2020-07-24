@@ -1,10 +1,6 @@
 package metalearnerNN;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class FullyConnectedLayer implements Layer, Serializable {
 
@@ -47,7 +43,6 @@ public class FullyConnectedLayer implements Layer, Serializable {
 
         double[] inputError = Matrix.dot(outputError, Matrix.transpose(weights));
 
-        //TODO: quickfix: turn outputerror into a 2d array for matrix multiplication; find a more elegant solution
         double[][] twoDOutputError = new double[1][outputError.length];
         for (int i = 0; i < outputError.length; i++) {
             twoDOutputError[0][i] = outputError[i];

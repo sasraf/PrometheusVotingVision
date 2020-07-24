@@ -1,11 +1,14 @@
+package testImages;
+
 import metalearnerNN.ActivationLayer;
-import metalearnerNN.Activations.softmaxActivationFunction;
 import metalearnerNN.Activations.tanhActivationFunction;
 import metalearnerNN.FullyConnectedLayer;
 import metalearnerNN.Loss.MeanSquaredErrorFunction;
 import metalearnerNN.NeuralNetwork;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Arrays;
 
 // Trains imageRecognition algos for testin on MNIST
@@ -65,7 +68,7 @@ public class imageAlgoCreationForTesting {
 
             System.out.println("Prediction: " + Arrays.deepToString(network.predict(new double[][] {inputData[50]})) + "Actual: " + Arrays.toString(expectedOutput[50]));
 
-            network.save("src/TestNetwork" + (i + 1) + ".txt");
+            network.save("src/testImages/TestNetwork" + (i + 1) + ".txt");
         }
     }
 }

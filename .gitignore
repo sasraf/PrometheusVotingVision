@@ -3,7 +3,7 @@
 !/src/testImages/mnist_train
 !/src/testImages/mnist_test.csv
 !/src/testImages/mnist_train.csv
-!/src/TestNetwork4.txt
-!/src/TestNetwork3.txt
-!/src/TestNetwork2.txt
-!/src/TestNetwork1.txt
+!/src/testImages/TestNetwork4.txt
+!/src/testImages/TestNetwork3.txt
+!/src/testImages/TestNetwork2.txt
+!/src/testImages/TestNetwork1.txt

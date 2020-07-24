@@ -1,8 +1,8 @@
-import metalearnerNN.*;
+package testImages;
 
-import java.io.FileInputStream;
+import metalearnerNN.NeuralNetwork;
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 public class AlgoForTesting {
 
@@ -13,10 +13,10 @@ public class AlgoForTesting {
     }
 
     public void load(int num) throws IOException, ClassNotFoundException {
-        network = network.load("src/TestNetwork" + (num + 1) + ".txt");
+        network = network.load("src/testImages/TestNetwork" + (num + 1) + ".txt");
     }
 
-    public double[][] processImage(double[][] inputData) throws IOException, ClassNotFoundException {
+    public double[][] processImage(double[][] inputData) {
 
         return network.predict(inputData);
     }

@@ -1,3 +1,5 @@
+package testImages;
+
 import metalearnerNN.ActivationLayer;
 import metalearnerNN.Activations.softmaxActivationFunction;
 import metalearnerNN.Activations.tanhActivationFunction;
@@ -6,11 +8,9 @@ import metalearnerNN.Loss.MeanSquaredErrorFunction;
 import metalearnerNN.NeuralNetwork;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 // Test vision system used for the purpose of using my Neural networks to test if ensemble learning is more accurate than the algos alone
 public class TestVisionSystem {
@@ -83,110 +83,6 @@ public class TestVisionSystem {
         }
         error = error / metaOutput.length;
         System.out.println("MetaLearner ran with an avg error of: " + error);
-
-
-
-
-
-
-
-        //TODO: uncomment from here down
-
-
-//        System.out.println("holder.length: " + holder.length + "\nholder[0].length: " + holder[0].length + "\nexpectedout.length: " + expectedOutputs.length + "\nexpectedOutput[0].length " + expectedOutputs[0].length);
-//
-//
-//        // Loading in other networks for comparison
-//        NeuralNetwork testNetwork1 = new NeuralNetwork();
-//        testNetwork1 = testNetwork1.load("src/TestNetwork1.txt");
-//        NeuralNetwork testNetwork2 = new NeuralNetwork();
-//        testNetwork2 = testNetwork2.load("src/TestNetwork2.txt");
-//        NeuralNetwork testNetwork3 = new NeuralNetwork();
-//        testNetwork3 = testNetwork3.load("src/TestNetwork3.txt");
-//        NeuralNetwork testNetwork4 = new NeuralNetwork();
-//        testNetwork4 = testNetwork4.load("src/TestNetwork4.txt");
-
-
-//        //TODO: take in data from mnist test and test each network
-
-
-
-
-//
-//        readFile = new FileInputStream(path);
-//        in = new ObjectInputStream(readFile);
-//
-//        mnist = (double[][]) in.readObject();
-//
-//        in.close();
-//        readFile.close();
-//
-//        double[][] newInputData = new double[mnist.length][mnist[0].length - 1];
-//        double[][] newexpectedOutput = new double[mnist.length][10];
-//
-//        for (int i = 0; i < mnist.length; i++) {
-//            expectedOutput[i] = oneHotEncodeMnist(mnist[i][0]);
-//            for (int n = 1; n < mnist[0].length; n++) {
-//                inputData[i][n - 1] = mnist[i][n];
-//            }
-//        }
-//
-//        double[][] testInputData = new double[10][newInputData[0].length];
-//        double[][] testExpectedOutput = new double[10][newexpectedOutput[0].length];
-//        for (int i = 0; i < 10; i++) {
-//            testInputData[i] = newInputData[i];
-//            testExpectedOutput[i] = expectedOutput[i];
-//        }
-//
-//        double[][] predictions1 = testNetwork1.predict(testInputData);
-//        double[][] predictions2 = testNetwork2.predict(testInputData);
-//        double[][] predictions3 = testNetwork3.predict(testInputData);
-//        double[][] predictions4 = testNetwork4.predict(testInputData);
-//
-//        outputs.clear();
-//        outputs.add(predictions1);
-//        outputs.add(predictions2);
-//        outputs.add(predictions3);
-//        outputs.add(predictions4);
-//
-//
-//        double[][] consolidatedPredictions = new double[outputs.get(0).length][outputs.size() * outputs.get(0)[0].length];
-//        for (int j = 0; j < outputs.get(0).length; j++) {
-//            int counter = 0;
-//            for (int k = 0; k < outputs.size(); k++) {
-//                for (int i = 0; i < outputs.get(0)[0].length; i++) {
-//                    consolidatedPredictions[j][counter] = outputs.get(k)[j][i];
-//                    counter++;
-//                }
-//            }
-//        }
-//
-//
-//
-//
-//        System.out.println("Network 1");
-//        for (int i = 0; i < predictions1.length; i++) {
-//            System.out.println("Prediction: " + Arrays.toString(predictions1[i]) + " Actual: " + Arrays.toString(testExpectedOutput[i]));
-//        }
-//        System.out.println("Network 2");
-//        for (int i = 0; i < predictions1.length; i++) {
-//            System.out.println("Prediction: " + Arrays.toString(predictions2[i]) + " Actual: " + Arrays.toString(testExpectedOutput[i]));
-//        }
-//        System.out.println("Network 3");
-//        for (int i = 0; i < predictions1.length; i++) {
-//            System.out.println("Prediction: " + Arrays.toString(predictions3[i]) + " Actual: " + Arrays.toString(testExpectedOutput[i]));
-//        }
-//        System.out.println("Network 4");
-//        for (int i = 0; i < predictions1.length; i++) {
-//            System.out.println("Prediction: " + Arrays.toString(predictions4[i]) + " Actual: " + Arrays.toString(testExpectedOutput[i]));
-//        }
-//        System.out.println("MetaLearner");
-//        double[][] metaPredict = network.predict(consolidatedPredictions);
-//        for (int i = 0; i < predictions1.length; i++) {
-//            System.out.println("Prediction: " + Arrays.toString(metaPredict[i]) + " Actual: " + Arrays.toString(testExpectedOutput[i]));
-//        }
-
-
     }
 
     // Onehotencodes MNIST labels
