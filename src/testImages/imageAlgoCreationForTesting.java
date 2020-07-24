@@ -14,22 +14,15 @@ import java.util.Arrays;
 // Trains imageRecognition algos for testin on MNIST
 public class imageAlgoCreationForTesting {
 
-    // Puts outputs in onehotencoding format
-    private static double[] oneHotEncodeMnist(double num) {
-        double[] oneHotEncoded = new double[10];
-        for (int i = 0; i < oneHotEncoded.length; i++) {
-            oneHotEncoded[i] = 0;
-        }
-        oneHotEncoded[(int) num] = 1;
-
-        return oneHotEncoded;
-    }
+    private static final int epochs = 10;
+    private static final double learningRate = .1;
+    private static final String learningDataPath = "src/testImages/mnist_train";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         // Takes in serialized array
         double[][] mnist;
-        FileInputStream readFile = new FileInputStream("src/testImages/mnist_train");
+        FileInputStream readFile = new FileInputStream(learningDataPath);
         ObjectInputStream in = new ObjectInputStream(readFile);
         mnist = (double[][]) in.readObject();
         in.close();
@@ -60,15 +53,26 @@ public class imageAlgoCreationForTesting {
 
             // Training and keeping track of time it takes to train
             long startTime = System.nanoTime();
-            network.train(inputData, expectedOutput, 10, .1);
+            network.train(inputData, expectedOutput, epochs, learningRate);
             long endTime = System.nanoTime();
             long trainingTime = endTime - startTime;
             totalMS += trainingTime / 1000000;
             System.out.println("Network #" + (i + 1) + " trained in " + trainingTime / 1000000 + "ms");
 
-            System.out.println("Prediction: " + Arrays.deepToString(network.predict(new double[][] {inputData[50]})) + "Actual: " + Arrays.toString(expectedOutput[50]));
+            System.out.println("Prediction: " + Arrays.deepToString(network.predict(new double[][]{inputData[50]})) + "Actual: " + Arrays.toString(expectedOutput[50]) + "\n\n");
 
             network.save("src/testImages/TestNetwork" + (i + 1) + ".txt");
         }
+    }
+
+    // Puts outputs in onehotencoding format
+    private static double[] oneHotEncodeMnist(double num) {
+        double[] oneHotEncoded = new double[10];
+        for (int i = 0; i < oneHotEncoded.length; i++) {
+            oneHotEncoded[i] = 0;
+        }
+        oneHotEncoded[(int) num] = 1;
+
+        return oneHotEncoded;
     }
 }

@@ -1,11 +1,13 @@
 package metalearnerNN.TestNetworks;
 
-import metalearnerNN.*;
-import metalearnerNN.Activations.*;
-import metalearnerNN.Loss.*;
+import metalearnerNN.ActivationLayer;
+import metalearnerNN.Activations.softmaxActivationFunction;
+import metalearnerNN.Activations.tanhActivationFunction;
+import metalearnerNN.FullyConnectedLayer;
+import metalearnerNN.Loss.MeanSquaredErrorFunction;
+import metalearnerNN.NeuralNetwork;
 
-
-import java.io.*;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class XORTest {
@@ -34,8 +36,8 @@ public class XORTest {
         long trainingTime = endTime - startTime;
 
         // Test saving/loading
-        network.save("bob.txt");
-        network = network.load("bob.txt");
+//        network.save("bob.txt");
+//        network = network.load("bob.txt");
 
 
         // Test network

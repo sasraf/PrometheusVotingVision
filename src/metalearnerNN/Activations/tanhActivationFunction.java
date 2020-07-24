@@ -3,7 +3,6 @@ package metalearnerNN.Activations;
 import metalearnerNN.Matrix;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 public class tanhActivationFunction implements ActivationFunction, Serializable {
 
@@ -13,12 +12,11 @@ public class tanhActivationFunction implements ActivationFunction, Serializable 
 
     //tanh activation function
     public double[] activation(double[] x) {
-        double[] c = new double[x.length];
         for (int i = 0; i < x.length; i++) {
-            c[i] = Math.tanh(x[i]);
+            x[i] = Math.tanh(x[i]);
         }
 
-        return c;
+        return x;
     }
 
     // 1 - tanh(x)^2

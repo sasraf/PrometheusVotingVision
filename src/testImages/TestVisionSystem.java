@@ -69,20 +69,50 @@ public class TestVisionSystem {
         for (int i = 0; i < outputs.size(); i++) {
             double[][] setOfOutputs = outputs.get(i);
             double error = 0;
+            double numOfTimesCorrect = 0;
             for (int n = 0; n < setOfOutputs.length; n++) {
                 error += mse.function(expectedOutputs[i], setOfOutputs[n]);
+
+                double max = -100;
+                int maxIndex = 0;
+                for (int j = 0; j < setOfOutputs[n].length; j++) {
+                    if (setOfOutputs[n][j] > max) {
+                        max = setOfOutputs[n][j];
+                        maxIndex = j;
+                    }
+                }
+                if (expectedOutputs[i][maxIndex] == 1) {
+                    numOfTimesCorrect++;
+                }
+
             }
             error = error / setOfOutputs.length;
+            double accuracy = (numOfTimesCorrect / setOfOutputs.length) * 100;
 
-            System.out.println("TestNetwork" + (i + 1) + " ran with an avg error of: " + error);
+            System.out.println("TestNetwork" + (i + 1) + " ran with an avg error of: " + error + " and an accuracy of: " + accuracy + "%");
         }
 
         double error = 0;
+        double numOfTimesCorrect = 0;
         for (int i = 0; i < metaOutput.length; i++) {
             error += mse.function(expectedOutputs[i], metaOutput[i]);
+
+            double max = -100;
+            int maxIndex = 0;
+            for (int j = 0; j < metaOutput[i].length; j++) {
+                if (metaOutput[i][j] > max) {
+                    max = metaOutput[i][j];
+                    maxIndex = j;
+                }
+            }
+            if (expectedOutputs[i][maxIndex] == 1) {
+                numOfTimesCorrect++;
+            }
         }
+
+        double accuracy = (numOfTimesCorrect / metaOutput.length) * 100;
         error = error / metaOutput.length;
-        System.out.println("MetaLearner ran with an avg error of: " + error);
+        System.out.println("MetaLearner ran with an avg error of: " + error + " with an accuracy of: " + accuracy + "%");
     }
 
     // Onehotencodes MNIST labels
