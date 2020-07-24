@@ -1,8 +1,8 @@
 package metalearnerNN.TestNetworks;
 
 import metalearnerNN.ActivationLayer;
+import metalearnerNN.Activations.reluActivationFunction;
 import metalearnerNN.Activations.softmaxActivationFunction;
-import metalearnerNN.Activations.tanhActivationFunction;
 import metalearnerNN.FullyConnectedLayer;
 import metalearnerNN.Loss.MeanSquaredErrorFunction;
 import metalearnerNN.NeuralNetwork;
@@ -20,7 +20,7 @@ public class XORTest {
         // Setting up network with 3 layers & tanh activation functions with a softmax output layer
         NeuralNetwork network = new NeuralNetwork();
         network.addLayer(new FullyConnectedLayer(2, 3));
-        network.addLayer(new ActivationLayer(new tanhActivationFunction()));
+        network.addLayer(new ActivationLayer(new reluActivationFunction()));
         network.addLayer(new FullyConnectedLayer(3, 2));
 //        network.addLayer(new ActivationLayer(new tanhActivationFunction()));
         network.addLayer(new ActivationLayer(new softmaxActivationFunction()));

@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class imageAlgoCreationForTesting {
 
     private static final int epochs = 10;
-    private static final double learningRate = .1;
+    private static final double learningRate = .01;
     private static final String learningDataPath = "src/testImages/mnist_train";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -30,10 +30,10 @@ public class imageAlgoCreationForTesting {
 
         // Saves serialized arrays to inputData and expectedOutput
         double[][] inputData = new double[mnist.length][mnist[0].length - 1];
-        double[][] expectedOutput = new double[mnist.length][10];
+        double[][] expectedOutputs = new double[mnist.length][10];
 
         for (int i = 0; i < mnist.length; i++) {
-            expectedOutput[i] = oneHotEncodeMnist(mnist[i][0]);
+            expectedOutputs[i] = oneHotEncodeMnist(mnist[i][0]);
             for (int n = 1; n < mnist[0].length; n++) {
                 inputData[i][n - 1] = mnist[i][n];
             }
@@ -53,15 +53,43 @@ public class imageAlgoCreationForTesting {
 
             // Training and keeping track of time it takes to train
             long startTime = System.nanoTime();
-            network.train(inputData, expectedOutput, epochs, learningRate);
+            network.train(inputData, expectedOutputs, epochs, learningRate);
             long endTime = System.nanoTime();
             long trainingTime = endTime - startTime;
             totalMS += trainingTime / 1000000;
             System.out.println("Network #" + (i + 1) + " trained in " + trainingTime / 1000000 + "ms");
 
-            System.out.println("Prediction: " + Arrays.deepToString(network.predict(new double[][]{inputData[50]})) + "Actual: " + Arrays.toString(expectedOutput[50]) + "\n\n");
+            System.out.println("Example Prediction: " + Arrays.deepToString(network.predict(new double[][]{inputData[50]})) + "Actual: " + Arrays.toString(expectedOutputs[50]));
 
             network.save("src/testImages/TestNetwork" + (i + 1) + ".txt");
+            System.out.println("Network saved");
+
+            // Gauge accuracy
+            double[][] prediction = network.predict(inputData);
+            MeanSquaredErrorFunction mse = new MeanSquaredErrorFunction();
+            double error = 0;
+            double numOfTimesCorrect = 0;
+            for (int n = 0; n < prediction.length; n++) {
+                error += mse.function(expectedOutputs[n], prediction[n]);
+
+                double max = -100;
+                int maxIndex = 0;
+                for (int j = 0; j < prediction[n].length; j++) {
+                    if (prediction[n][j] > max) {
+                        max = prediction[n][j];
+                        maxIndex = j;
+                    }
+                }
+                if (expectedOutputs[n][maxIndex] == 1) {
+                    numOfTimesCorrect++;
+                }
+            }
+            error = error / prediction.length;
+            double accuracy = (numOfTimesCorrect / prediction.length) * 100;
+
+            System.out.println("TestNetwork" + (i + 1) + " ran with an avg error of: " + error + " and an accuracy of: " + accuracy + "%");
+
+
         }
     }
 
