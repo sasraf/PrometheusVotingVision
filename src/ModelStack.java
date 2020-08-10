@@ -19,19 +19,18 @@ public class ModelStack {
         algorithms.add(new TestAlgo(new double[]{.8, .85, .9, .95}));
 
         // Loads training data into each algorithm
-        for (int i = 0; i < algorithms.size(); i++) {
-            algorithms.get(i).load();
-        }
+//        for (int i = 0; i < algorithms.size(); i++) {
+//            algorithms.get(i).load();
+//        }
     }
 
     // Takes in an already created ArrayList of algorithms
-    public ModelStack(ArrayList<Algorithm> inputAlgorithms)
-    {
+    public ModelStack(ArrayList<Algorithm> inputAlgorithms, ArrayList<String> savePaths) {
         algorithms = inputAlgorithms;
 
         // Loads training data into each algorithm
         for (int i = 0; i < algorithms.size(); i++) {
-            algorithms.get(i).load();
+            algorithms.get(i).load(savePaths.get(i));
         }
     }
 

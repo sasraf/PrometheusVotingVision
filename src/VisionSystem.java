@@ -8,20 +8,22 @@ import java.util.Scanner;
 
 public class VisionSystem {
 
+    private static MetaLearner metaLearner;
+    private static ModelStack modelStack;
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         // Test
-        MetaLearner metaLearner = new MetaLearner();
-        ModelStack modelStack = new ModelStack();
+        metaLearner = new MetaLearner();
+        modelStack = new ModelStack();
 
         //TODO: use this when adding algorithms:
-//        MetaLearner metaLearner = new MetaLearner(int passedInputs, int passedOutputs, double passedLearningRate);
-//        ModelStack modelStack = new  ModelStack(ArrayList<Algorithm> inputAlgorithms);
+//        metaLearner = new MetaLearner(int passedInputs, int passedOutputs, double passedLearningRate);
+//        modelStack = new  ModelStack(ArrayList<Algorithm> inputAlgorithms);
 
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
         while (!input.equals("q")) {
-
             System.out.println("Please select what you would like to do or press 'q' to quit:");
             System.out.println("A.) Test Models\nB.) Test ModelStack\nC.)Save MetaLearner\nD.)Load MetaLearner\nE.) Train MetaLearner");
 
@@ -30,17 +32,8 @@ public class VisionSystem {
             if (input.equals("a") || input.equals("A")) {
                 String dirPath = getFilePath("Testing/Images", "Enter the name of your folder containing images or press enter to use the default \"Testing/images\" folder: ", scanner);
 
-                // Creates an arraylist of the paths of each image in the given directory
-                ArrayList<String> imagePaths = listImagesInDir(dirPath);
-
-                // For each image, outputs of all algorithms into processedImage, collect those inputs into a metaLearnerInput double array to be passed to the metaLearner
-                double[] processedImage = modelStack.processImage(imagePaths.get(0));
-                double[][] metaLearnerInputs = new double[imagePaths.size()][processedImage.length];
-                metaLearnerInputs[0] = processedImage;
-                for (int i = 1; i < imagePaths.size(); i++) {
-                    processedImage = modelStack.processImage(imagePaths.get(i));
-                    metaLearnerInputs[i] = processedImage;
-                }
+                // Processes every image in the dirPath using the modelStack, consolidates the modelStack's outputs
+                double[][] metaLearnerInputs = processAndConsolidateOutputs(dirPath);
 
                 // Pass inputs to metaLearner
                 double[][] metaOutputs = metaLearner.feedForward(metaLearnerInputs);
@@ -71,6 +64,7 @@ public class VisionSystem {
                 metaLearner.load(dirPath);
             }
             // Train metalearner
+            // Currently takes in a serialized array as its expectedOutput
             else if (input.equals("e") || input.equals("E")) {
                 String dirPath = getFilePath("Testing/Images/imageKey.txt", "Enter the filepath or press enter to use the default \"Testing/Images\". File must contain serialized double[][] of expectedOutputs: ", scanner);
 
@@ -83,17 +77,8 @@ public class VisionSystem {
 
                 dirPath = getFilePath("Testing/Images", "Enter the name of your folder containing images or press enter to use the default \"Testing/Images\" folder: ", scanner);
 
-                // Creates an arraylist of the paths of each image in the given directory
-                ArrayList<String> imagePaths = listImagesInDir(dirPath);
-
-                // For each image, outputs of all algorithms into processedImage, collect those inputs into a metaLearnerInput double array to be passed to the metaLearner
-                double[] processedImage = modelStack.processImage(imagePaths.get(0));
-                double[][] metaLearnerInputs = new double[imagePaths.size()][processedImage.length];
-                metaLearnerInputs[0] = processedImage;
-                for (int i = 1; i < imagePaths.size(); i++) {
-                    processedImage = modelStack.processImage(imagePaths.get(i));
-                    metaLearnerInputs[i] = processedImage;
-                }
+                // Processes every image in the dirPath using the modelStack, consolidates the modelStack's outputs
+                double[][] metaLearnerInputs = processAndConsolidateOutputs(dirPath);
 
                 System.out.println("Enter number of epochs: ");
                 int epochs = scanner.nextInt();
@@ -104,8 +89,25 @@ public class VisionSystem {
         }
     }
 
-    private static String getFilePath(String defaultString, String prompt, Scanner scanner) {
+    // Processes every image in the dirPath using the modelStack, consolidates the modelStack's outputs, returns those outputs
+    private static double[][] processAndConsolidateOutputs(String dirPath) {
+        // Creates an arraylist of the paths of each image in the given directory
+        ArrayList<String> imagePaths = listImagesInDir(dirPath);
 
+        // For each image, outputs of all algorithms into processedImage, collect those inputs into a metaLearnerInput double array to be passed to the metaLearner
+        double[] processedImage = modelStack.processImage(imagePaths.get(0));
+        double[][] metaLearnerInputs = new double[imagePaths.size()][processedImage.length];
+        metaLearnerInputs[0] = processedImage;
+        for (int i = 1; i < imagePaths.size(); i++) {
+            processedImage = modelStack.processImage(imagePaths.get(i));
+            metaLearnerInputs[i] = processedImage;
+        }
+
+        return metaLearnerInputs;
+    }
+
+    // Displays a prompt and returns the filePath the user would like to use, otherwise returns default filepath
+    private static String getFilePath(String defaultString, String prompt, Scanner scanner) {
         // Set a dir containing images to pass through the visionsystem
         System.out.println(prompt);
         String input = scanner.nextLine();
@@ -119,7 +121,6 @@ public class VisionSystem {
 
     // Given a folder with images, creates an arraylist of the images' filePaths
     private static ArrayList<String> listImagesInDir(String filePath) {
-
         ArrayList<String> imagePaths = new ArrayList<String>();
 
         // Check that given path is a folder
