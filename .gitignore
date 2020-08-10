@@ -1,9 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
-!/src/testImages/mnist_test
-!/src/testImages/mnist_train
-!/src/testImages/mnist_test.csv
-!/src/testImages/mnist_train.csv
-!/src/testImages/TestNetwork4.txt
-!/src/testImages/TestNetwork3.txt
-!/src/testImages/TestNetwork2.txt
-!/src/testImages/TestNetwork1.txt
+!/src/Testing/TestData/mnist_test
+!/src/Testing/TestData/mnist_train
+!/src/Testing/TestData/mnist_test.csv
+!/src/Testing/TestData/mnist_train.csv
+!/src/Testing/TestData/TestNetwork4.txt
+!/src/Testing/TestData/TestNetwork3.txt
+!/src/Testing/TestData/TestNetwork2.txt
+!/src/Testing/TestData/TestNetwork1.txt
+!/.idea/
+bob.txt

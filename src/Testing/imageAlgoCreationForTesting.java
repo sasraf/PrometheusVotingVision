@@ -1,4 +1,4 @@
-package testImages;
+package Testing;
 
 import metalearnerNN.ActivationLayer;
 import metalearnerNN.Activations.tanhActivationFunction;
@@ -14,9 +14,9 @@ import java.util.Arrays;
 // Trains imageRecognition algos for testin on MNIST
 public class imageAlgoCreationForTesting {
 
-    private static final int epochs = 10;
+    private static final int epochs = 100;
     private static final double learningRate = .01;
-    private static final String learningDataPath = "src/testImages/mnist_train";
+    private static final String learningDataPath = "src/Testing/TestData/mnist_train";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
@@ -61,7 +61,7 @@ public class imageAlgoCreationForTesting {
 
             System.out.println("Example Prediction: " + Arrays.deepToString(network.predict(new double[][]{inputData[50]})) + "Actual: " + Arrays.toString(expectedOutputs[50]));
 
-            network.save("src/testImages/TestNetwork" + (i + 1) + ".txt");
+            network.save("src/Testing/TestData/TestNetwork" + (i + 1) + ".txt");
             System.out.println("Network saved");
 
             // Gauge accuracy

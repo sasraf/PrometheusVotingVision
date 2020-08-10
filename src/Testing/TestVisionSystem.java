@@ -1,4 +1,4 @@
-package testImages;
+package Testing;
 
 import metalearnerNN.ActivationLayer;
 import metalearnerNN.Activations.softmaxActivationFunction;
@@ -17,12 +17,9 @@ import java.util.ArrayList;
 public class TestVisionSystem {
 
     // path where serliazed MNIST data is stored
-    private static final String trainPath = "src/testImages/mnist_train";
-    private static final String testPath = "src/testImages/mnist_test";
-    //    private static double[][] mnist;
+    private static final String trainPath = "src/Testing/TestData/mnist_train";
+    private static final String testPath = "src/Testing/TestData/mnist_test";
     private static final Loss errorFunction = new MeanSquaredErrorFunction();
-//    private static double[][] inputData;
-//    private static double[][] expectedOutputs;
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -56,7 +53,7 @@ public class TestVisionSystem {
         // Training and keeping track of time it takes to train
         System.out.println("\n\nTraining MetaLearner:");
         long startTime = System.nanoTime();
-        metaLearner.train(holder, expectedOutputs, 10, .1);
+        metaLearner.train(holder, expectedOutputs, 20, .01);
         long endTime = System.nanoTime();
         long trainingTime = endTime - startTime;
         System.out.println("Trained in " + trainingTime / 1000000 + "ms\n");
@@ -105,7 +102,7 @@ public class TestVisionSystem {
         double accuracy = (numOfTimesCorrect / prediction.length) * 100;
         error = error / prediction.length;
 
-        System.out.println(networkName + " ran with an avg error of: " + error + " with an accuracy of: " + accuracy + "%");
+        System.out.println(networkName + " ran over " + prediction.length + " test cases with an avg error of: " + error + " with an accuracy of: " + accuracy + "%");
     }
 
     // Onehotencodes MNIST labels

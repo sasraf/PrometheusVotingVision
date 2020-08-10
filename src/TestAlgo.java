@@ -6,7 +6,7 @@ public class TestAlgo implements Algorithm {
         testOutput = input;
     }
 
-    public void load() {
+    public void load(String filePath) {
     }
 
     @Override

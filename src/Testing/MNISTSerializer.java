@@ -1,4 +1,4 @@
-package testImages;
+package Testing;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ public class MNISTSerializer {
     private static final int numOfPixelsInImage = 785;
 
     // Path to file being read, path to file where the serialized array is saved
-    private static final String path = "src/testImages/mnist_test.csv";//"mnist_train.csv";
-    private static final String saveFile = "src/testImages/mnist_test";
+    private static final String path = "src/Testing/TestData/mnist_test.csv"; //mnist_train.csv";
+    private static final String saveFile = "src/Testing/TestData/mnist_test"; //mnist_train";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 

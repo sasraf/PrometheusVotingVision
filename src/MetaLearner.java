@@ -1,7 +1,9 @@
-import metalearnerNN.*;
+import metalearnerNN.ActivationLayer;
 import metalearnerNN.Activations.softmaxActivationFunction;
 import metalearnerNN.Activations.tanhActivationFunction;
+import metalearnerNN.FullyConnectedLayer;
 import metalearnerNN.Loss.MeanSquaredErrorFunction;
+import metalearnerNN.NeuralNetwork;
 
 import java.io.IOException;
 
@@ -14,6 +16,7 @@ public class MetaLearner {
     private final int outputs = 4;
     private double learningRate = .1;
 
+    // Default settings
     public MetaLearner() {
         network = new NeuralNetwork();
         network.setLoss(new MeanSquaredErrorFunction());
@@ -47,7 +50,7 @@ public class MetaLearner {
     }
 
     //Runs backprop algorithm
-    public void backProp(double[][] inputs, double[][] expected, int epochs) {
+    public void train(double[][] inputs, double[][] expected, int epochs) {
         network.train(inputs, expected, epochs, learningRate);
     }
 
