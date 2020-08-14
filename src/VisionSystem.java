@@ -25,7 +25,7 @@ public class VisionSystem {
 
         while (!input.equals("q")) {
             System.out.println("Please select what you would like to do or press 'q' to quit:");
-            System.out.println("A.) Test Models\nB.) Test ModelStack\nC.)Save MetaLearner\nD.)Load MetaLearner\nE.) Train MetaLearner");
+            System.out.println("A.) Test Models\nB.) Test ModelStack\nC.) Save MetaLearner\nD.) Load MetaLearner\nE.) Train MetaLearner");
 
             input = scanner.nextLine();
 

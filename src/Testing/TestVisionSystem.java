@@ -20,6 +20,8 @@ public class TestVisionSystem {
     private static final String trainPath = "src/Testing/TestData/mnist_train";
     private static final String testPath = "src/Testing/TestData/mnist_test";
     private static final Loss errorFunction = new MeanSquaredErrorFunction();
+    private static final int epochs = 20;
+    private static final double learningRate = .01;
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -53,7 +55,7 @@ public class TestVisionSystem {
         // Training and keeping track of time it takes to train
         System.out.println("\n\nTraining MetaLearner:");
         long startTime = System.nanoTime();
-        metaLearner.train(holder, expectedOutputs, 20, .01);
+        metaLearner.train(holder, expectedOutputs, epochs, learningRate);
         long endTime = System.nanoTime();
         long trainingTime = endTime - startTime;
         System.out.println("Trained in " + trainingTime / 1000000 + "ms\n");
